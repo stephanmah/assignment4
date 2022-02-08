@@ -1,66 +1,105 @@
-import java.util.*;
+class stackObject {
 
-public class myStack {
+    int array[];
+    int top_a;
+    int top_b;
+    int size;
 
-    ArrayList<Integer> stackA = new ArrayList<Integer>();
-    ArrayList<Integer> stackB = new ArrayList<Integer>();
+    // Stack Constructor
+    stackObject(int size) {
+        array = new int[size];
+        top_a = -1;
+        top_b = size;
 
-
-
-
-    void pop_a() {
-        stackA.remove(stackA.size() - 1);
     }
 
-    void pop_b() {
-        stackB.remove(stackB.size() - 1);
+    int pop_a() {
+        if (top_a == -1) {
+            System.out.println("You need to add values before you can pop any!");
+            return -1;
+        }
+        return array[top_a--];
     }
 
-    void push_a(int aEntry) {
-        stackA.add(aEntry);
+    int pop_b() {
+        if (top_b == array.length) {
+            System.out.println("You need to add values before you can pop any!");
+            return -1;
+        }
+        return array[top_b++];
     }
 
-    void push_b(int bEntry) {
-        stackB.add(bEntry);
-    }
-
-    boolean isEmpty(ArrayList<Integer> testStack) {
-        if (testStack.isEmpty()) {
-            return true;
+    void push_a(int a_value) {
+        if (isFull()) {
+            System.out.println("You've overloaded the array, it needs to be larger");
         } else {
-            return false;
+            top_a++;
+            array[top_a] = a_value;
+        }
+    }
+
+    void push_b(int b_value) {
+        if (isFull()) {
+            System.out.println("You've overloaded the array, it needs to be larger");
+        } else {
+            top_b--;
+            array[top_b] = b_value;
         }
 
-
-
     }
 
-    boolean isFull1(ArrayList<Integer> testStack) {
+    boolean isEmpty() {
+        if ((top_a == -1) && (top_b == size)) {
+            System.out.println("The stack is empty");
+            return true;
+        }
         return false;
     }
 
+    boolean isFull() {
+        if (top_a < top_b - 1)
+            return false;
+        else
+            return true;
+    }
 
-    public static void main(String[] args) {
+    void display_a() {
+        if (isEmpty())
+            ;
+        System.out.println();
 
-        myStack stack1 = new myStack();
+        System.out.println("Elements in Stack A");
 
-        stack1.push_a(1);
-        stack1.push_a(2);
-        stack1.push_a(3);
-        stack1.push_a(4);
+        for (int i = 0; i < top_a; i++) {
+            System.out.println(array[i] + " ");
+        }
+        System.out.println();
+    }
 
-        stack1.push_b(1);
-        stack1.push_b(2);
-        stack1.push_b(3);
-        stack1.push_b(4);
+    void display_b() {
+        if (isEmpty())
+            ;
+        System.out.println();
 
-        
-        /*
-         * push a few values onto stack A then push a few values on stack B
-         * pop the values on stack a and check theyre correct as they are popped
-         * pop the values on stack B and check theyre correct as they are popped
-         *
-         *
-         */
+        System.out.println("Elements in Stack bens");
+
+        for (int i = 0; i < top_b; i++) {
+            System.out.println(array[i] + " ");
+        }
+        System.out.println();
+    }
+
+    public class myStack {
+
+        public static void main(String[] args) {
+            System.out.println("Test");
+
+            stackObject stack1 = new stackObject(1);
+
+            stack1.display_a();
+            stack1.display_b();
+
+        }
+
     }
 }
